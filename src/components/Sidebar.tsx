@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   List,
   ListItemButton,
@@ -7,22 +7,38 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import ChevronRight from "@mui/icons-material/ChevronRight";
-import FolderIcon from "@mui/icons-material/Folder";
-import DescriptionIcon from "@mui/icons-material/Description";
-
+import FileIcon from "./FileIcon"; // <-- Manteniamo le icone personalizzate
 import { fileSystem } from "../data/fileSystem";
+import type { FileSystemNode, FileNode } from "../types";
+import { FcOpenedFolder } from "react-icons/fc";
+import { FcFolder } from "react-icons/fc";
 
-// Componente ricorsivo per una singola voce
-function FileSystemItem({ item, level = 0, onFileSelect, selectedFileId }) {
+// Tipi per le props...
+interface SidebarProps {
+  onFileSelect: (file: FileNode) => void;
+  selectedFileId: string | undefined;
+}
+
+interface FileSystemItemProps {
+  item: FileSystemNode;
+  level?: number;
+  onFileSelect: (file: FileNode) => void;
+  selectedFileId: string | undefined;
+}
+
+function FileSystemItem({
+  item,
+  level = 0,
+  onFileSelect,
+  selectedFileId,
+}: FileSystemItemProps) {
   const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     if (item.type === "folder") {
       setOpen(!open);
     } else {
-      onFileSelect(item); // Comunica al genitore quale file è stato selezionato
+      onFileSelect(item);
     }
   };
 
@@ -32,16 +48,20 @@ function FileSystemItem({ item, level = 0, onFileSelect, selectedFileId }) {
     return (
       <>
         <ListItemButton onClick={handleClick} sx={{ pl: 2 + level * 2 }}>
-          {open ? <ExpandMore /> : <ChevronRight />}
-          <FolderIcon sx={{ mr: 1, fontSize: "1.2rem" }} />
+          {/* Usiamo le icone corrette */}
+          {open ? (
+            <FcOpenedFolder size={20} style={{ marginRight: "8px" }} />
+          ) : (
+            <FcFolder size={20} style={{ marginRight: "8px" }} />
+          )}
           <ListItemText
             primary={item.name}
-            primaryTypographyProps={{ variant: "body2" }}
+            primaryTypographyProps={{ variant: "body2", fontWeight: "bold" }}
           />
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {item.children.map((child) => (
+            {item.children.map((child: FileSystemNode) => (
               <FileSystemItem
                 key={child.id}
                 item={child}
@@ -56,14 +76,19 @@ function FileSystemItem({ item, level = 0, onFileSelect, selectedFileId }) {
     );
   }
 
-  // Se è un file
   return (
     <ListItemButton
       onClick={handleClick}
-      sx={{ pl: 4 + level * 2 }}
+      sx={{
+        pl: 2 + level * 2,
+        py: 0.5,
+        "&.Mui-selected": {
+          backgroundColor: "rgba(255, 255, 255, 0.08) !important",
+        },
+      }}
       selected={isSelected}
     >
-      <DescriptionIcon sx={{ mr: 1, fontSize: "1.2rem" }} />
+      <FileIcon name={item.name} />
       <ListItemText
         primary={item.name}
         primaryTypographyProps={{ variant: "body2" }}
@@ -72,21 +97,27 @@ function FileSystemItem({ item, level = 0, onFileSelect, selectedFileId }) {
   );
 }
 
-// Componente principale della Sidebar
-export default function Sidebar({ onFileSelect, selectedFileId }) {
+export default function Sidebar({
+  onFileSelect,
+  selectedFileId,
+}: SidebarProps) {
   return (
     <Box
       component="aside"
       sx={{
-        width: "280px",
+        width: "300px",
         height: "100%",
-        backgroundColor: "background.paper",
+        flexShrink: 0,
+        // --- COLORI RIPRISTINATI ---
+        backgroundColor: "#181818",
         borderRight: "1px solid rgba(255, 255, 255, 0.12)",
+        // Non serve specificare il colore di testo e icone, lo ereditano dal tema
+        // --- FINE MODIFICA ---
         p: 2,
         overflowY: "auto",
       }}
     >
-      <Typography variant="h6" sx={{ color: "text.primary", mb: 2 }}>
+      <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
         ESPLORA
       </Typography>
       <List component="nav">

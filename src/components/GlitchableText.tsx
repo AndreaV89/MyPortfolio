@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Glitch.css";
 
 // Funzione helper per generare un numero casuale in un range
-const random = (min, max) => Math.random() * (max - min) + min;
+const random = (min: number, max: number): number =>
+  Math.random() * (max - min) + min;
 
-function GlitchableText({ text }) {
+interface GlitchableTextProps {
+  text: string;
+}
+
+function GlitchableText({ text }: GlitchableTextProps) {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
-    let glitchTimeout;
+    let glitchTimeout: ReturnType<typeof setTimeout>;
 
     const triggerRandomGlitch = () => {
       // Calcola un intervallo di tempo casuale per il prossimo glitch
