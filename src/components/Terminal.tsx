@@ -70,9 +70,10 @@ const WelcomeMessage = () => (
 
 interface TerminalProps {
   onOpenFile: (file: FileNode) => void;
+  onToggleTheme: () => void;
 }
 
-export default function Terminal({ onOpenFile }: TerminalProps) {
+export default function Terminal({ onOpenFile, onToggleTheme }: TerminalProps) {
   const [history, setHistory] = useState<React.ReactNode[]>([
     <WelcomeMessage key="welcome" />,
   ]);
@@ -88,7 +89,7 @@ export default function Terminal({ onOpenFile }: TerminalProps) {
     switch (command) {
       case "help":
         output =
-          "Comandi: about, projects, contact, open <file-id>, neofetch, clear";
+          "Comandi: about, projects, contact, open <file-id>, theme, neofetch, clear";
         break;
       case "about":
         output =
@@ -99,6 +100,10 @@ export default function Terminal({ onOpenFile }: TerminalProps) {
         break;
       case "contact":
         output = "Puoi trovarmi su [la tua email] o [il tuo LinkedIn].";
+        break;
+      case "theme":
+        onToggleTheme();
+        output = "Tema cambiato.";
         break;
       case "clear":
         setHistory([]);
@@ -150,12 +155,13 @@ export default function Terminal({ onOpenFile }: TerminalProps) {
     <Box
       sx={{
         height: "250px",
-        position: "relative",
-        backgroundColor: "#1a1d21",
+        //position: "relative",
+        backgroundColor: "background.default",
         p: 2,
         overflowY: "auto",
         fontFamily: "monospace",
-        borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+        borderTop: "1px solid",
+        borderColor: "divider",
       }}
       onClick={focusInput}
     >

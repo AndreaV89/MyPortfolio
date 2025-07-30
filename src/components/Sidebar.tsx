@@ -109,8 +109,9 @@ export default function Sidebar({
         height: "100%",
         flexShrink: 0,
         // --- COLORI RIPRISTINATI ---
-        backgroundColor: "#181818",
-        borderRight: "1px solid rgba(255, 255, 255, 0.12)",
+        backgroundColor: "background.default",
+        borderRight: "1px solid",
+        borderColor: "divider",
         // Non serve specificare il colore di testo e icone, lo ereditano dal tema
         // --- FINE MODIFICA ---
         p: 2,

@@ -1,6 +1,13 @@
-import { useState } from "react";
-import { ThemeProvider, CssBaseline, Box, Collapse } from "@mui/material";
-import codeEditorTheme from "../src/theme";
+import React, { useState, useMemo } from "react";
+import {
+  ThemeProvider,
+  CssBaseline,
+  Box,
+  Collapse,
+  createTheme,
+  GlobalStyles,
+} from "@mui/material";
+import type { PaletteMode } from "@mui/material";
 import Sidebar from "./components/Sidebar";
 import Terminal from "./components/Terminal";
 
@@ -13,6 +20,7 @@ import TabBar from "./components/TabBar";
 import TitleBar from "./components/TitleBar";
 
 function App() {
+  const [mode, setMode] = useState<PaletteMode>("dark");
   // NUOVO STATO: teniamo traccia di tutti i tab aperti e di quale è attivo
   const readmeFile = findFileById(fileSystem, "readme");
   const [openTabs, setOpenTabs] = useState<FileNode[]>(
@@ -24,6 +32,70 @@ function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(true);
   const [history, setHistory] = useState<string[]>([activeTabId || ""]);
   const [historyIndex, setHistoryIndex] = useState(0);
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+
+          // Definiamo i colori per entrambi i temi per coerenza
+          ...(mode === "dark"
+            ? {
+                primary: {
+                  main: "#a8e400",
+                },
+                // Valori per il tema scuro
+                background: { default: "#181818", paper: "#1f1f1f" },
+                text: { primary: "#abb2bf" },
+                divider: "rgba(255, 255, 255, 0.12)",
+                syntax: {
+                  reactTag: "#4ec9b0",
+                  keyword: "#c284bd",
+                  string: "#ce9178",
+                  comment: "#679554",
+                  varName: "#9ad8f8",
+                  compName: "#d8d8a7",
+                  punc: "#f8f8f2",
+                  symbols: "#757575",
+                  brackets1: "#ffd700",
+                  brackets2: "#d76fd3",
+                  brackets3: "#179fff",
+                },
+              }
+            : {
+                primary: {
+                  main: "#007acc", // Un blu classico e leggibile
+                },
+                // Valori per il tema chiaro
+                background: { default: "#f8f8f8", paper: "#ffffff" },
+                text: { primary: "#242424", secondary: "#585858" },
+                divider: "rgba(0, 0, 0, 0.12)",
+                syntax: {
+                  reactTag: "#398aa2",
+                  keyword: "#af00db",
+                  string: "#a82121",
+                  comment: "#008000",
+                  varName: "#0070c1",
+                  compName: "#7b6129",
+                  punc: "#0d0d0d",
+                  symbols: "#800000",
+                  brackets1: "#0431fa",
+                  brackets2: "#319331",
+                  brackets3: "#966145",
+                },
+              }),
+        },
+        typography: {
+          fontFamily: '"Fira Code", monospace',
+        },
+      }),
+    [mode]
+  );
 
   // Funzione per navigare a un tab e aggiornare la cronologia
   const navigateToTab = (tabId: string) => {
@@ -107,14 +179,35 @@ function App() {
   const activeFile = openTabs.find((tab) => tab.id === activeTabId) || null;
 
   return (
-    <ThemeProvider theme={codeEditorTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
+      <GlobalStyles
+        styles={(theme) => ({
+          // Applichiamo gli stili al body per una migliore performance e compatibilità
+          "*": {
+            // Per Firefox
+            scrollbarWidth: "thin",
+            scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`,
+          },
+          "*::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "*::-webkit-scrollbar-track": {
+            background: theme.palette.background.paper,
+          },
+          "*::-webkit-scrollbar-thumb": {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: "4px",
+            border: `2px solid ${theme.palette.background.paper}`,
+          },
+        })}
+      />
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           height: "100vh",
-          width: "100vw",
+          width: "100%",
         }}
       >
         <TitleBar
@@ -123,8 +216,17 @@ function App() {
           onGoForward={handleGoForward}
           canGoBack={canGoBack}
           canGoForward={canGoForward}
+          onToggleTheme={toggleTheme}
+          currentTheme={mode}
         />
-        <Box sx={{ display: "flex", flexGrow: 1, overflow: "hidden" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexGrow: 1,
+            overflow: "hidden",
+            minHeight: 0,
+          }}
+        >
           {/* La sidebar ora chiama handleOpenFile */}
           <Sidebar
             onFileSelect={handleOpenFile}
@@ -144,7 +246,7 @@ function App() {
           </Box>
         </Box>
         <Collapse in={isTerminalOpen}>
-          <Terminal onOpenFile={handleOpenFile} />
+          <Terminal onOpenFile={handleOpenFile} onToggleTheme={toggleTheme} />
         </Collapse>
         <StatusBar file={activeFile} onToggleTerminal={handleToggleTerminal} />
       </Box>

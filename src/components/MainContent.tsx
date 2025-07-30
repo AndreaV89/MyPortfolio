@@ -14,7 +14,8 @@ export default function MainContent({ file }: MainContentProps) {
         sx={{
           flexGrow: 1,
           p: 4,
-          borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+          borderTop: "1px solid",
+          borderColor: "divider",
         }}
       >
         <GlitchableText text="SELEZIONA UN FILE" />
@@ -26,10 +27,11 @@ export default function MainContent({ file }: MainContentProps) {
     <Box
       component="main"
       sx={{
-        backgroundColor: "#1f1f1f",
+        backgroundColor: "background.paper",
         flexGrow: 1,
         p: 4,
-        borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+        borderTop: "1px solid",
+        borderColor: "divider",
       }}
     >
       <GlitchableText text={file.name.toUpperCase()} />

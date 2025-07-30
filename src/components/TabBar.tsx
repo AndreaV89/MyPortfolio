@@ -22,7 +22,7 @@ export default function TabBar({
   };
 
   return (
-    <Box sx={{ backgroundColor: "#181818" }}>
+    <Box sx={{ backgroundColor: "background.default" }}>
       <Tabs
         value={activeTabId}
         onChange={onTabChange}
