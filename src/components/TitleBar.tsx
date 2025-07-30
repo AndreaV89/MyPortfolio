@@ -5,13 +5,19 @@ import type { FileNode } from "../types";
 
 interface TitleBarProps {
   activeFile: FileNode | null;
+  onGoBack: () => void;
+  onGoForward: () => void;
+  canGoBack: boolean;
+  canGoForward: boolean;
 }
 
-export default function TitleBar({ activeFile }: TitleBarProps) {
-  // Per ora, le frecce sono disabilitate. La logica di cronologia si può aggiungere in seguito.
-  const canGoBack = false;
-  const canGoForward = false;
-
+export default function TitleBar({
+  activeFile,
+  onGoBack,
+  onGoForward,
+  canGoBack,
+  canGoForward,
+}: TitleBarProps) {
   return (
     <Box
       component="header"
@@ -35,10 +41,15 @@ export default function TitleBar({ activeFile }: TitleBarProps) {
         }}
       >
         {/* Frecce di Navigazione (ora senza sfondo) */}
-        <IconButton size="small" disabled={!canGoBack}>
+        <IconButton size="small" onClick={onGoBack} disabled={!canGoBack}>
           <ArrowBackIcon fontSize="small" />
         </IconButton>
-        <IconButton size="small" disabled={!canGoForward} sx={{ mr: 1 }}>
+        <IconButton
+          size="small"
+          onClick={onGoForward}
+          disabled={!canGoForward}
+          sx={{ mr: 1 }}
+        >
           <ArrowForwardIcon fontSize="small" />
         </IconButton>
 

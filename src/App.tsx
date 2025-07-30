@@ -22,6 +22,20 @@ function App() {
     readmeFile ? readmeFile.id : null
   );
   const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+  const [history, setHistory] = useState<string[]>([activeTabId || ""]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Funzione per navigare a un tab e aggiornare la cronologia
+  const navigateToTab = (tabId: string) => {
+    setActiveTabId(tabId);
+
+    // Se navighiamo indietro e poi apriamo un nuovo tab, la cronologia "futura" viene cancellata
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(tabId);
+
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  };
 
   // Funzione per APRIRE un file (chiamata dalla Sidebar)
   const handleOpenFile = (file: FileNode) => {
@@ -30,7 +44,7 @@ function App() {
       setOpenTabs([...openTabs, file]);
     }
     // Imposta il tab come attivo
-    setActiveTabId(file.id);
+    navigateToTab(file.id);
   };
 
   const handleToggleTerminal = () => {
@@ -39,28 +53,55 @@ function App() {
 
   // Funzione per CAMBIARE tab (chiamata dalla TabBar)
   const handleTabChange = (event: React.SyntheticEvent, newTabId: string) => {
-    setActiveTabId(newTabId);
+    navigateToTab(newTabId);
+    console.log(event);
   };
 
   const handleCloseTab = (tabIdToClose: string) => {
     const tabIndex = openTabs.findIndex((tab) => tab.id === tabIdToClose);
-
-    // Rimuoviamo il tab dalla lista
     const newOpenTabs = openTabs.filter((tab) => tab.id !== tabIdToClose);
     setOpenTabs(newOpenTabs);
 
-    // Se il tab chiuso era quello attivo, dobbiamo decidere quale tab attivare
     if (activeTabId === tabIdToClose) {
       if (newOpenTabs.length === 0) {
-        // Se non ci sono più tab, non c'è nessun tab attivo
         setActiveTabId(null);
+        // --- AGGIUNTA: RESET DELLA CRONOLOGIA ---
+        setHistory([]);
+        setHistoryIndex(0);
+        // --- FINE AGGIUNTA ---
       } else {
-        // Altrimenti, attiva il tab successivo o precedente
         const newActiveIndex = Math.max(0, tabIndex - 1);
-        setActiveTabId(newOpenTabs[newActiveIndex].id);
+        const newActiveTabId = newOpenTabs[newActiveIndex].id;
+        setActiveTabId(newActiveTabId);
+
+        // Per coerenza, aggiorniamo anche la cronologia quando chiudiamo un tab attivo
+        const newHistory = history.slice(0, historyIndex + 1);
+        setHistory(newHistory);
+        setHistoryIndex(newHistory.length - 1);
       }
     }
   };
+
+  // --- NUOVE FUNZIONI PER LE FRECCE ---
+  const handleGoBack = () => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      setActiveTabId(history[newIndex]);
+    }
+  };
+
+  const handleGoForward = () => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      setActiveTabId(history[newIndex]);
+    }
+  };
+
+  // Determiniamo se i bottoni devono essere attivi
+  const canGoBack = historyIndex > 0;
+  const canGoForward = historyIndex < history.length - 1;
 
   // Troviamo il file corrispondente al tab attivo da passare a MainContent
   const activeFile = openTabs.find((tab) => tab.id === activeTabId) || null;
@@ -76,7 +117,13 @@ function App() {
           width: "100vw",
         }}
       >
-        <TitleBar activeFile={activeFile} />
+        <TitleBar
+          activeFile={activeFile}
+          onGoBack={handleGoBack}
+          onGoForward={handleGoForward}
+          canGoBack={canGoBack}
+          canGoForward={canGoForward}
+        />
         <Box sx={{ display: "flex", flexGrow: 1, overflow: "hidden" }}>
           {/* La sidebar ora chiama handleOpenFile */}
           <Sidebar
@@ -97,7 +144,7 @@ function App() {
           </Box>
         </Box>
         <Collapse in={isTerminalOpen}>
-          <Terminal />
+          <Terminal onOpenFile={handleOpenFile} />
         </Collapse>
         <StatusBar file={activeFile} onToggleTerminal={handleToggleTerminal} />
       </Box>

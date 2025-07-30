@@ -9,7 +9,7 @@ export const ReactTag = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Keyword = ({ children }: { children: React.ReactNode }) => (
-  <Typography component="span" sx={{ color: "#b67eb2" }}>
+  <Typography component="span" sx={{ color: "#c284bd" }}>
     {children}
   </Typography>
 );
@@ -32,8 +32,20 @@ export const VarName = ({ children }: { children: React.ReactNode }) => (
   </Typography>
 );
 
+export const CompName = ({ children }: { children: React.ReactNode }) => (
+  <Typography component="span" sx={{ color: "#d8d8a7" }}>
+    {children}
+  </Typography>
+);
+
 export const Punc = ({ children }: { children: React.ReactNode }) => (
   <Typography component="span" sx={{ color: "#f8f8f2" }}>
+    {children}
+  </Typography>
+);
+
+export const Symbols = ({ children }: { children: React.ReactNode }) => (
+  <Typography component="span" sx={{ color: "#7e7e7e" }}>
     {children}
   </Typography>
 );
