@@ -1,5 +1,5 @@
 import { Box, Link } from "@mui/material";
-import { Punc, Comment, VarName } from "../components/SyntaxComponents"; // <-- Importiamo gli stili
+import { Punc, Comment, VarName, String } from "../components/SyntaxComponents"; // <-- Importiamo gli stili
 
 export default function AboutMeContent() {
   return (

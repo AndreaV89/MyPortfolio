@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Typography, Box, Chip, Link } from "@mui/material";
 import {
+  String,
   Keyword,
   Punc,
   Comment,
@@ -26,10 +27,6 @@ export default function PortfolioProjectContent() {
     ],
     sourceCodeUrl: "https://github.com/tuo-username/tuo-repo", // URL Reale o segnaposto
   };
-
-  useEffect(() => {
-    console.log(portfolio.description);
-  }, []);
 
   return (
     <Box

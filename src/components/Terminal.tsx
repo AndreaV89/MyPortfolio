@@ -78,6 +78,7 @@ export default function Terminal({ onOpenFile }: TerminalProps) {
   ]);
   const [input, setInput] = useState("");
   const endOfHistoryRef = useRef<null | HTMLDivElement>(null);
+  const inputRef = useRef<null | HTMLInputElement>(null);
 
   const executeCommand = (fullInput: string) => {
     const [command, ...args] = fullInput.toLowerCase().split(" ");
@@ -137,35 +138,45 @@ export default function Terminal({ onOpenFile }: TerminalProps) {
   };
 
   useEffect(() => {
-    /* ... come prima ... */
+    endOfHistoryRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
+
+  // Funzione per mettere a fuoco l'input quando si clicca ovunque nel terminale
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
 
   return (
     <Box
       sx={{
         height: "250px",
-        backgroundColor: "#181818",
-        borderTop: "1px solid #2b2b2b",
+        position: "relative",
+        backgroundColor: "#1a1d21",
         p: 2,
         overflowY: "auto",
         fontFamily: "monospace",
+        borderTop: "1px solid rgba(255, 255, 255, 0.12)",
       }}
+      onClick={focusInput}
     >
-      {history.map((line, index) => (
-        <Typography
-          key={index}
-          variant="body2"
-          component="pre"
-          sx={{ whiteSpace: "pre-wrap" }}
-        >
-          {line}
-        </Typography>
-      ))}
+      <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+        {history.map((line, index) => (
+          <Typography
+            key={index}
+            variant="body2"
+            component="pre"
+            sx={{ whiteSpace: "pre-wrap" }}
+          >
+            {line}
+          </Typography>
+        ))}
+      </Box>
       <Box component="form" sx={{ display: "flex", alignItems: "center" }}>
         <Typography component="span" sx={{ mr: 1 }}>
           &gt;
         </Typography>
         <InputBase
+          inputRef={inputRef}
           fullWidth
           value={input}
           onChange={(e) => setInput(e.target.value)}
