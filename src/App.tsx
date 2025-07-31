@@ -1,11 +1,15 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
+  Typography,
   ThemeProvider,
   CssBaseline,
   Box,
   Collapse,
   createTheme,
   GlobalStyles,
+  useTheme,
+  useMediaQuery,
+  Drawer,
 } from "@mui/material";
 import type { PaletteMode } from "@mui/material";
 import Sidebar from "./components/Sidebar";
@@ -18,8 +22,25 @@ import type { FileNode } from "./types";
 import StatusBar from "./components/StatusBar";
 import TabBar from "./components/TabBar";
 import TitleBar from "./components/TitleBar";
+import MatrixBackground from "./components/MatrixBackground";
+import { Fade } from "@mui/material";
+
+const asciiLogo2 = `
+           ░███    ░██    ░██          ░██      
+    ░██   ░██░██   ░██    ░██         ░██  ░██  
+  ░██    ░██  ░██  ░██    ░██        ░██     ░██ 
+░██     ░█████████ ░██    ░██       ░██        ░██
+  ░██   ░██    ░██  ░██  ░██       ░██       ░██ 
+    ░██ ░██    ░██   ░██░██       ░██      ░██  
+        ░██    ░██    ░███       ░██           
+`;
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const themeInternal = useTheme();
+  const isMobile = useMediaQuery(themeInternal.breakpoints.down("md"));
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const [mode, setMode] = useState<PaletteMode>("dark");
   // NUOVO STATO: teniamo traccia di tutti i tab aperti e di quale è attivo
   const readmeFile = findFileById(fileSystem, "readme");
@@ -32,6 +53,19 @@ function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(true);
   const [history, setHistory] = useState<string[]>([activeTabId || ""]);
   const [historyIndex, setHistoryIndex] = useState(0);
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  useEffect(() => {
+    // Nasconde la splash screen dopo 2.5 secondi
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3500);
+
+    return () => clearTimeout(timer); // Pulisce il timer
+  }, []);
 
   const toggleTheme = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
@@ -50,7 +84,10 @@ function App() {
                   main: "#a8e400",
                 },
                 // Valori per il tema scuro
-                background: { default: "#181818", paper: "#1f1f1f" },
+                background: {
+                  default: "rgba(24, 24, 24, 0.85)",
+                  paper: "rgba(31, 31, 31, 0.85)",
+                },
                 text: { primary: "#abb2bf" },
                 divider: "rgba(255, 255, 255, 0.12)",
                 syntax: {
@@ -72,7 +109,10 @@ function App() {
                   main: "#007acc", // Un blu classico e leggibile
                 },
                 // Valori per il tema chiaro
-                background: { default: "#f8f8f8", paper: "#ffffff" },
+                background: {
+                  default: "rgba(248, 248, 248, 0.98)",
+                  paper: "rgba(255, 255, 255, 0.98)",
+                },
                 text: { primary: "#242424", secondary: "#585858" },
                 divider: "rgba(0, 0, 0, 0.12)",
                 syntax: {
@@ -178,6 +218,13 @@ function App() {
   // Troviamo il file corrispondente al tab attivo da passare a MainContent
   const activeFile = openTabs.find((tab) => tab.id === activeTabId) || null;
 
+  const sidebarComponent = (
+    <Sidebar
+      onFileSelect={handleOpenFile}
+      selectedFileId={activeTabId ?? undefined}
+    />
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -202,54 +249,91 @@ function App() {
           },
         })}
       />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-          width: "100%",
-        }}
-      >
-        <TitleBar
-          activeFile={activeFile}
-          onGoBack={handleGoBack}
-          onGoForward={handleGoForward}
-          canGoBack={canGoBack}
-          canGoForward={canGoForward}
-          onToggleTheme={toggleTheme}
-          currentTheme={mode}
-        />
+      <MatrixBackground isSplashScreen={loading} />
+      {/* La splash screen viene mostrata/nascosta in base allo stato 'loading' */}
+      <Fade in={loading} timeout={1000}>
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+        >
+          <Typography
+            component="pre"
+            sx={{ color: "primary.main", fontSize: "1.5rem" }}
+          >
+            {asciiLogo2}
+          </Typography>
+        </Box>
+      </Fade>
+      {/* Usiamo un Fade per far apparire l'app principale con un effetto gradevole */}
+      <Fade in={!loading} timeout={1000}>
         <Box
           sx={{
             display: "flex",
-            flexGrow: 1,
-            overflow: "hidden",
-            minHeight: 0,
+            flexDirection: "column",
+            height: "100vh",
+            width: "100%",
           }}
         >
-          {/* La sidebar ora chiama handleOpenFile */}
-          <Sidebar
-            onFileSelect={handleOpenFile}
-            selectedFileId={activeTabId ?? undefined}
+          <TitleBar
+            activeFile={activeFile}
+            onGoBack={handleGoBack}
+            onGoForward={handleGoForward}
+            canGoBack={canGoBack}
+            canGoForward={canGoForward}
+            onToggleTheme={toggleTheme}
+            currentTheme={mode}
+            onMenuClick={handleSidebarToggle}
           />
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              overflow: "hidden",
+              minHeight: 0,
+            }}
+          >
+            {isMobile ? (
+              <Drawer open={isSidebarOpen} onClose={handleSidebarToggle}>
+                {sidebarComponent}
+              </Drawer>
+            ) : (
+              sidebarComponent
+            )}
 
-          <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-            {/* La nostra nuova barra dei tab */}
-            <TabBar
-              openTabs={openTabs}
-              activeTabId={activeTabId}
-              onTabChange={handleTabChange}
-              onCloseTab={handleCloseTab}
-            />
-            {/* Il contenuto principale mostra il file del tab attivo */}
-            <MainContent file={activeFile} />
+            <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+              {/* La nostra nuova barra dei tab */}
+              <TabBar
+                openTabs={openTabs}
+                activeTabId={activeTabId}
+                onTabChange={handleTabChange}
+                onCloseTab={handleCloseTab}
+              />
+              {/* Il contenuto principale mostra il file del tab attivo */}
+              <MainContent file={activeFile} />
+              <Collapse in={isTerminalOpen}>
+                <Terminal
+                  onOpenFile={handleOpenFile}
+                  onToggleTheme={toggleTheme}
+                />
+              </Collapse>
+            </Box>
           </Box>
+
+          <StatusBar
+            file={activeFile}
+            onToggleTerminal={handleToggleTerminal}
+          />
         </Box>
-        <Collapse in={isTerminalOpen}>
-          <Terminal onOpenFile={handleOpenFile} onToggleTheme={toggleTheme} />
-        </Collapse>
-        <StatusBar file={activeFile} onToggleTerminal={handleToggleTerminal} />
-      </Box>
+      </Fade>
     </ThemeProvider>
   );
 }

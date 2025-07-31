@@ -4,6 +4,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import type { FileNode } from "../types";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import MenuIcon from "@mui/icons-material/Menu";
 
 interface TitleBarProps {
   activeFile: FileNode | null;
@@ -13,6 +14,7 @@ interface TitleBarProps {
   canGoForward: boolean;
   onToggleTheme: () => void;
   currentTheme: "light" | "dark";
+  onMenuClick: () => void;
 }
 
 export default function TitleBar({
@@ -23,6 +25,7 @@ export default function TitleBar({
   canGoForward,
   onToggleTheme,
   currentTheme,
+  onMenuClick,
 }: TitleBarProps) {
   return (
     <Box
@@ -42,7 +45,14 @@ export default function TitleBar({
       }}
     >
       {/* Gruppo Sinistra (segnaposto per bilanciare) */}
-      <Box sx={{ width: 80 }} />
+      <Box sx={{ width: 80, display: "flex", alignItems: "center" }}>
+        <IconButton
+          onClick={onMenuClick}
+          sx={{ display: { xs: "flex", md: "none" } }} // <-- Mostra solo su mobile
+        >
+          <MenuIcon />
+        </IconButton>
+      </Box>
       {/* --- BLOCCO CENTRALE UNICO --- */}
       <Box
         sx={{
@@ -50,7 +60,7 @@ export default function TitleBar({
           left: "50%",
           top: "50%",
           transform: "translate(-50%, -50%)",
-          display: "flex",
+          display: { xs: "none", md: "flex" },
           alignItems: "center",
         }}
       >
@@ -73,9 +83,13 @@ export default function TitleBar({
             backgroundColor: "rgba(0,0,0,0.2)",
             borderRadius: 1,
             p: "6px 12px", // Leggermente aggiustato per l'altezza
-            minWidth: "600px",
             border: "1px solid",
             borderColor: "divider",
+            width: {
+              xs: "150px", // Larghezza base per schermi molto piccoli
+              sm: "300px", // Larghezza per schermi piccoli (telefoni)
+              md: "600px", // Larghezza per schermi medi e grandi (desktop)
+            },
           }}
         >
           <Typography

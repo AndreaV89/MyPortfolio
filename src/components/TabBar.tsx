@@ -52,7 +52,7 @@ export default function TabBar({
             minHeight: "40px",
             textTransform: "none",
             color: "text.secondary",
-            backgroundColor: "#2d2d2d",
+            backgroundColor: "background.default",
             borderRight: "1px solid",
             borderColor: "divider",
             outline: "none",
@@ -63,7 +63,8 @@ export default function TabBar({
               color: "text.primary",
               animation: "glitchTabSelect 300ms cubic-bezier(0.4, 0, 0.2, 1)",
               backgroundColor: "background.default",
-              borderTop: "1px solid #a8e400",
+              borderTop: "1px solid",
+              borderColor: "primary.main",
               // Abbiamo rimosso la riga "borderBottomColor: 'background.default'"
               // Ora anche il tab selezionato mostrerà il suo bordo inferiore.
             },

@@ -37,7 +37,10 @@ export default function StatusBar({ file, onToggleTerminal }: StatusBarProps) {
             </Typography>
           </Box>
         </GlitchableIcon>
-        <Typography variant="body2">
+        <Typography
+          variant="body2"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
           {/* Mostriamo il percorso del file selezionato */}
           {file ? `aperto: ${file.name}` : "nessun file aperto"}
         </Typography>
@@ -78,9 +81,19 @@ export default function StatusBar({ file, onToggleTerminal }: StatusBarProps) {
 
       {/* --- Sezione Destra --- */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <Typography variant="body2">Ln 1, Col 1</Typography>
-        <Typography variant="body2">UTF-8</Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+        <Typography
+          variant="body2"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
+          Ln 1, Col 1
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
+          UTF-8
+        </Typography>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <CodeIcon sx={{ fontSize: "1rem" }} />
           <Typography variant="body2">TypeScript React</Typography>
         </Box>

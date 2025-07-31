@@ -16,7 +16,7 @@ export default function AboutMeContent() {
           component="span"
           sx={{ color: "primary.main", fontWeight: "bold" }}
         >
-          [Il Tuo Nome]
+          Andrea Vannetti
         </Typography>
         , un web developer a cui piace dare vita a idee creative e interattive
         attraverso il codice.

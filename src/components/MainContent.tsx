@@ -32,6 +32,7 @@ export default function MainContent({ file }: MainContentProps) {
         p: 4,
         borderTop: "1px solid",
         borderColor: "divider",
+        overflowY: "auto",
       }}
     >
       <GlitchableText text={file.name.toUpperCase()} />
