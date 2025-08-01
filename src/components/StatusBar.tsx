@@ -11,6 +11,8 @@ interface StatusBarProps {
 }
 
 export default function StatusBar({ file, onToggleTerminal }: StatusBarProps) {
+  const currentYear = new Date().getFullYear();
+
   return (
     <Box
       component="footer"
@@ -97,6 +99,9 @@ export default function StatusBar({ file, onToggleTerminal }: StatusBarProps) {
           <CodeIcon sx={{ fontSize: "1rem" }} />
           <Typography variant="body2">TypeScript React</Typography>
         </Box>
+        <Typography variant="body2" sx={{ ml: 2 }}>
+          © {currentYear} Andrea Vannetti
+        </Typography>
       </Box>
     </Box>
   );
