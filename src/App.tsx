@@ -280,7 +280,10 @@ function App() {
             display: "flex",
             flexDirection: "column",
             height: "100vh",
+            maxWidth: "1920px",
             width: "100%",
+            margin: "0 auto",
+            boxShadow: "0 0 30px rgba(0,0,0,0.5)",
           }}
         >
           <TitleBar
