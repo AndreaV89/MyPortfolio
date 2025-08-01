@@ -106,12 +106,12 @@ function App() {
               }
             : {
                 primary: {
-                  main: "#007acc", // Un blu classico e leggibile
+                  main: "#007BFF", // Un blu classico e leggibile
                 },
                 // Valori per il tema chiaro
                 background: {
-                  default: "rgba(248, 248, 248, 0.98)",
-                  paper: "rgba(255, 255, 255, 0.98)",
+                  default: "rgba(248, 248, 248, 0.65)",
+                  paper: "rgba(255, 255, 255, 0.65)",
                 },
                 text: { primary: "#242424", secondary: "#585858" },
                 divider: "rgba(0, 0, 0, 0.12)",
@@ -249,7 +249,10 @@ function App() {
           },
         })}
       />
-      <MatrixBackground isSplashScreen={loading} />
+      <MatrixBackground
+        isSplashScreen={loading}
+        color={theme.palette.primary.main}
+      />
       {/* La splash screen viene mostrata/nascosta in base allo stato 'loading' */}
       <Fade in={loading} timeout={1000}>
         <Box

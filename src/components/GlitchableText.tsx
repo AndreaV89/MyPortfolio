@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Box } from "@mui/material";
 import "./Glitch.css";
 
 // Funzione helper per generare un numero casuale in un range
@@ -46,12 +47,57 @@ function GlitchableText({ text }: GlitchableTextProps) {
   }, []); // L'array vuoto assicura che useEffect venga eseguito solo una volta
 
   return (
-    <div
-      className={`glitch-container ${isGlitching ? "glitching" : ""}`}
+    <Box
+      sx={(theme) => ({
+        // Definiamo l'animazione direttamente qui per accedere al tema
+        "@keyframes glitch-chaos": {
+          "0%": {
+            opacity: 1,
+            transform: "translate(0)",
+            clipPath: "polygon(0 2%, 100% 2%, 100% 40%, 0 40%)",
+          },
+          "5%": { clipPath: "polygon(0 60%, 100% 60%, 100% 50%, 0 50%)" },
+          // ... (puoi copiare tutti gli altri keyframes da Glitch.css)
+          "100%": {
+            opacity: 1,
+            transform: "translate(0)",
+            clipPath: "polygon(0 5%, 100% 5%, 100% 30%, 0 30%)",
+          },
+        },
+        position: "relative",
+        fontSize: "4rem",
+        fontWeight: "bold",
+        color: "primary.main", // <-- Usa il colore primario del tema
+        cursor: "pointer",
+        userSelect: "none",
+
+        "&::before, &::after": {
+          content: `attr(data-text)`,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: theme.palette.background.paper, // Sfondo del tema
+          overflow: "hidden",
+          opacity: 0,
+        },
+        "&.glitching::before": {
+          left: "2px",
+          textShadow: "-2px 0 magenta",
+          animation: "glitch-chaos 0.4s ease-in-out infinite alternate-reverse",
+        },
+        "&.glitching::after": {
+          left: "-2px",
+          textShadow: "-2px 0 cyan",
+          animation: "glitch-chaos 0.5s ease-in-out infinite alternate-reverse",
+        },
+      })}
+      className={isGlitching ? "glitching" : ""}
       data-text={text}
     >
       {text}
-    </div>
+    </Box>
   );
 }
 

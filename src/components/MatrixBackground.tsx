@@ -3,10 +3,12 @@ import { Box } from "@mui/material";
 
 interface MatrixBackgroundProps {
   isSplashScreen: boolean;
+  color: string;
 }
 
 export default function MatrixBackground({
   isSplashScreen,
+  color,
 }: MatrixBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -40,7 +42,7 @@ export default function MatrixBackground({
       const draw = () => {
         context.fillStyle = "rgba(0, 0, 0, 0.05)";
         context.fillRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = "#a8e400";
+        context.fillStyle = color;
         context.font = `${fontSize}px monospace`;
 
         for (let i = 0; i < rainDrops.length; i++) {
@@ -79,7 +81,7 @@ export default function MatrixBackground({
       window.removeEventListener("resize", handleResize);
       window.clearInterval(intervalId);
     };
-  }, []); // L'array vuoto assicura che questo effetto venga eseguito solo una volta (al montaggio)
+  }, [color]); // L'array vuoto assicura che questo effetto venga eseguito solo una volta (al montaggio)
 
   return (
     <Box
