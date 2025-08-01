@@ -50,30 +50,34 @@ export default function SkillsContent() {
       {"  "}
       <Keyword>return</Keyword> <Punc>(</Punc>
       <br />
-      {"    "}
-      <Punc>&lt;&gt;</Punc>
-      <br />
-      {Object.entries(groupedSkills).map(([category, skills]) => (
-        <Box key={category} sx={{ mb: 4 }}>
-          <Typography
-            variant="h6"
-            sx={{ color: "primary.main", mb: 2 }}
-          >{`// ${category}`}</Typography>
-          {skills.map((skill) => (
-            <Box key={skill.name} sx={{ mb: 2 }}>
-              <Typography variant="body2">{skill.name}</Typography>
-              <LinearProgress
-                variant="determinate"
-                value={skill.level}
-                color="primary"
-                sx={{ height: 8, borderRadius: 2 }}
-              />
-            </Box>
-          ))}
-        </Box>
-      ))}
-      {"    "}
-      <Punc>&lt;/&gt;</Punc>
+      <Box sx={{ maxWidth: "800px" }}>
+        {"    "}
+        <Punc>&lt;&gt;</Punc>
+        <br />
+        {Object.entries(groupedSkills).map(([category, skills]) => (
+          <Box key={category} sx={{ mb: 4, ml: 4 }}>
+            {" "}
+            {/* Aggiunto un po' di margine per l'indentazione */}
+            <Typography
+              variant="h6"
+              sx={{ color: "primary.main", mb: 2 }}
+            >{`// ${category}`}</Typography>
+            {skills.map((skill) => (
+              <Box key={skill.name} sx={{ mb: 2 }}>
+                <Typography variant="body2">{skill.name}</Typography>
+                <LinearProgress
+                  variant="determinate"
+                  value={skill.level}
+                  color="primary"
+                  sx={{ height: 8, borderRadius: 2 }}
+                />
+              </Box>
+            ))}
+          </Box>
+        ))}
+        {"    "}
+        <Punc>&lt;/&gt;</Punc>
+      </Box>
       <br />
       {"  "}
       <Punc>);</Punc>

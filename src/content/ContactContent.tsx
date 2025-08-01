@@ -1,7 +1,13 @@
-import { Box, Link } from "@mui/material";
-import { Punc, Comment, VarName, String } from "../components/SyntaxComponents"; // <-- Importiamo gli stili
+import { Box, Button } from "@mui/material";
+import {
+  Punc,
+  Comment,
+  VarName,
+  String,
+  Keyword,
+} from "../components/SyntaxComponents";
 
-export default function AboutMeContent() {
+export default function ContactContent() {
   return (
     <Box
       component="pre"
@@ -10,11 +16,12 @@ export default function AboutMeContent() {
       <Comment>
         {`
     /*******************************************************\\
-     * GET IN TOUCH                     *
+     * CONNECTION ESTABLISHED -- WAITING FOR INPUT...      *
     \\*******************************************************/
-            `}
+        `}
       </Comment>
       <br />
+      <Keyword>const</Keyword> <VarName>contactInfo</VarName> <Punc>=</Punc>{" "}
       <Punc>&#123;</Punc>
       <br />
       {"  "}
@@ -23,73 +30,43 @@ export default function AboutMeContent() {
       <Punc>,</Punc>
       <br />
       {"  "}
-      <VarName>"email"</VarName>
-      <Punc>:</Punc>{" "}
-      <String>
-        "
-        <Link href="mailto:a.vannetti08@gmail.com" sx={{ color: "#a6e22e" }}>
-          a.vannetti08@gmail.com
-        </Link>
-        "
-      </String>
+      <VarName>"location"</VarName>
+      <Punc>:</Punc> <String>"Italia"</String>
       <Punc>,</Punc>
       <br />
       {"  "}
-      <VarName>"website"</VarName>
-      <Punc>:</Punc>{" "}
-      <String>
-        "
-        <Link
-          href="https://tuo-sito.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ color: "#a6e22e" }}
-        >
-          tuo-sito.com
-        </Link>
-        "
-      </String>
+      <VarName>"timezone"</VarName>
+      <Punc>:</Punc> <String>"Central European Time (CET)"</String>
       <Punc>,</Punc>
       <br />
       {"  "}
-      <VarName>"socials"</VarName>
-      <Punc>:</Punc> <Punc>&#123;</Punc>
+      <VarName>"preferredMethod"</VarName>
+      <Punc>:</Punc> <String>"Email"</String>
       <br />
-      {"    "}
-      <VarName>"linkedin"</VarName>
-      <Punc>:</Punc>{" "}
-      <String>
-        "
-        <Link
-          href="https://www.linkedin.com/in/andrea-vannetti-215105153/"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ color: "#a6e22e" }}
-        >
-          /in/andrea-vannetti
-        </Link>
-        "
-      </String>
-      <Punc>,</Punc>
-      <br />
-      {"    "}
-      <VarName>"github"</VarName>
-      <Punc>:</Punc>{" "}
-      <String>
-        "
-        <Link
-          href="https://github.com/AndreaV89"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ color: "#a6e22e" }}
-        >
-          /AndreaV89
-        </Link>
-        "
-      </String>
-      <br />
-      {"  "}
       <Punc>&#125;</Punc>
+      <Punc>;</Punc>
+      <br />
+      <br />
+      <Comment>&#47;&#47; Oppure, invia un messaggio diretto:</Comment>
+      <br />
+      <Keyword>function</Keyword> <VarName>sendMessage</VarName>
+      <Punc>()</Punc> <Punc>&#123;</Punc>
+      <br />
+      {"  "}
+      <Keyword>return</Keyword> <Punc>(</Punc>
+      <br />
+      {"    "}
+      <Button
+        variant="outlined"
+        color="primary"
+        href="mailto:a.vannetti08@gmail.com"
+        sx={{ textTransform: "none", fontFamily: "Fira Code" }}
+      >
+        <String>'Invia un messaggio'</String>
+      </Button>
+      <br />
+      {"  "}
+      <Punc>);</Punc>
       <br />
       <Punc>&#125;</Punc>
     </Box>

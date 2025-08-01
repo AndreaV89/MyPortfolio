@@ -309,7 +309,14 @@ function App() {
               sidebarComponent
             )}
 
-            <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: 1,
+                minWidth: 0,
+              }}
+            >
               {/* La nostra nuova barra dei tab */}
               <TabBar
                 openTabs={openTabs}
