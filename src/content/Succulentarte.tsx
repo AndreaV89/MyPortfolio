@@ -1,3 +1,4 @@
+import React from "react";
 import { Typography, Box, Chip, Link } from "@mui/material";
 import {
   String,
@@ -29,7 +30,6 @@ export default function Succulentarte() {
     ],
     liveUrl: "https://www.succulentarte.com/",
     sourceCodeUrl: "", // Se il codice è privato, puoi omettere questo link
-    imageUrl: "",
   };
   // ---------------------------------------------------
 
@@ -58,26 +58,26 @@ export default function Succulentarte() {
       <Punc>:</Punc> <String>`{project.description}`</String>
       <Punc>,</Punc>
       <br />
+      {"  "}
+      <VarName>features</VarName>
+      <Punc>:</Punc> <Punc>&#91;</Punc>
+      <br />
+      {project.features.map((s) => (
+        <React.Fragment key={s}>
+          {"    "}
+          <String>"{s}"</String>
+          <Punc>,</Punc>
+          <br />
+        </React.Fragment>
+      ))}
+      {"  "}
+      <Punc>&#93;</Punc>
+      <Punc>,</Punc>
+      <br />
       <Punc>&#125;</Punc>
       <Punc>;</Punc>
       <br />
       <br />
-      {/* --- IMMAGINE --- */}
-      {project.imageUrl && (
-        <Box component="div" sx={{ my: 2 }}>
-          <img
-            src={project.imageUrl}
-            alt="Screenshot del portfolio"
-            style={{
-              width: "100%",
-              borderRadius: "8px",
-              border: "1px solid #424242",
-            }}
-          />
-        </Box>
-      )}
-      {/* --- DETTAGLI --- */}
-      <Typography variant="h6">Features:</Typography>
       <Comment>&#47;&#47; Visualizza i dettagli del progetto</Comment>
       <br />
       <Box sx={{ marginTop: "1rem" }}>

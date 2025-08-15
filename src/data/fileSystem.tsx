@@ -33,7 +33,7 @@ export const fileSystem: FileSystemNode[] = [
         content: <PortfolioProjectContent />,
       },
       {
-        id: "project-2",
+        id: "succulentarte.tsx",
         type: "file",
         name: "Succulentarte.tsx",
         content: <Succulentarte />,

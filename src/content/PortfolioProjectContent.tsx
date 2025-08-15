@@ -33,6 +33,7 @@ export default function PortfolioProjectContent() {
       "Terminale interattivo con comandi custom",
     ],
     sourceCodeUrl: "https://github.com/tuo-username/tuo-repo", // URL Reale o segnaposto
+    imageUrl: "/path/to/your/screenshot-portfolio.jpg",
   };
 
   return (
@@ -41,7 +42,6 @@ export default function PortfolioProjectContent() {
         <ModuleLoader onComplete={handleLoadingComplete} />
       ) : (
         <Fade in={!isLoading} timeout={500}>
-          {/* Tutto il JSX del contenuto del progetto che avevamo prima va qui dentro */}
           <Box
             component="pre"
             sx={{
@@ -67,18 +67,7 @@ export default function PortfolioProjectContent() {
             <VarName>description</VarName>
             <Punc>:</Punc> <String>`{portfolio.description}`</String>
             <Punc>,</Punc>
-            <br />
             {"  "}
-            <VarName>stack</VarName>
-            <Punc>:</Punc> <Brackets2>&#91;</Brackets2>
-            {portfolio.stack.map((s) => (
-              <React.Fragment key={s}>
-                <String>"{s}"</String>
-                <Punc>,</Punc>{" "}
-              </React.Fragment>
-            ))}
-            <Brackets2>&#93;</Brackets2>
-            <Punc>,</Punc>
             <br />
             {"  "}
             <VarName>features</VarName>
