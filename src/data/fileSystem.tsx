@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import type { FileSystemNode, FileNode } from "../types";
 
 import ReadmeContent from "../content/ReadmeContent";
@@ -6,6 +5,7 @@ import AboutMeContent from "../content/AboutMeContent";
 import PortfolioProjectContent from "../content/PortfolioProjectContent";
 import ContactContent from "../content/ContactContent";
 import SkillsContent from "../content/SkillsContent";
+import Succulentarte from "../content/Succulentarte";
 
 // Dati del nostro finto file system
 export const fileSystem: FileSystemNode[] = [
@@ -35,8 +35,8 @@ export const fileSystem: FileSystemNode[] = [
       {
         id: "project-2",
         type: "file",
-        name: "API per Blog.css",
-        content: <Typography>Dettagli del progetto API per Blog...</Typography>,
+        name: "Succulentarte.tsx",
+        content: <Succulentarte />,
       },
     ],
   },
