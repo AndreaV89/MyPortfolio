@@ -1,10 +1,14 @@
 import { Typography, Box, LinearProgress } from "@mui/material";
 import {
+  CompName,
   Comment,
   Keyword,
   VarName,
   Punc,
   String,
+  Brackets1,
+  Brackets2,
+  Brackets3,
 } from "../components/SyntaxComponents";
 
 // --- PERSONALIZZA LE TUE COMPETENZE QUI ---
@@ -44,11 +48,11 @@ export default function SkillsContent() {
       <Punc>;</Punc>
       <br />
       <br />
-      <Keyword>const</Keyword> <VarName>MySkills</VarName> <Punc>=</Punc>{" "}
-      <Punc>()</Punc> <Punc>=&gt;</Punc> <Punc>&#123;</Punc>
+      <Keyword>const</Keyword> <CompName>MySkills</CompName> <Punc>=</Punc>{" "}
+      <Brackets1>()</Brackets1> <Punc>=&gt;</Punc> <Brackets2>&#123;</Brackets2>
       <br />
       {"  "}
-      <Keyword>return</Keyword> <Punc>(</Punc>
+      <Keyword>return</Keyword> <Brackets3>(</Brackets3>
       <br />
       <Box sx={{ maxWidth: "800px" }}>
         {"    "}
@@ -80,9 +84,9 @@ export default function SkillsContent() {
       </Box>
       <br />
       {"  "}
-      <Punc>);</Punc>
+      <Brackets3>);</Brackets3>
       <br />
-      <Punc>&#125;</Punc>
+      <Brackets2>&#125;</Brackets2>
       <Punc>;</Punc>
     </Box>
   );

@@ -252,6 +252,10 @@ function App() {
             borderRadius: "4px",
             border: `2px solid ${theme.palette.background.paper}`,
           },
+          "body, header, footer, aside, main, .MuiPaper-root, .MuiTab-root": {
+            transition:
+              "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out",
+          },
         })}
       />
       <CodeFlowBackground
