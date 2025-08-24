@@ -26,13 +26,12 @@ import CodeFlowBackground from "./components/CodeFlowBackground";
 import { Fade } from "@mui/material";
 
 const asciiLogo2 = `
-           ░███    ░██    ░██          ░██      
-    ░██   ░██░██   ░██    ░██         ░██  ░██  
-  ░██    ░██  ░██  ░██    ░██        ░██     ░██ 
-░██     ░█████████ ░██    ░██       ░██        ░██
-  ░██   ░██    ░██  ░██  ░██       ░██       ░██ 
-    ░██ ░██    ░██   ░██░██       ░██      ░██  
-        ░██    ░██    ░███       ░██           
+  ██╗ █████╗ ██╗   ██╗   ██╗██╗  
+ ██╔╝██╔══██╗██║   ██║  ██╔╝╚██╗ 
+██╔╝ ███████║██║   ██║ ██╔╝  ╚██╗
+╚██╗ ██╔══██║╚██╗ ██╔╝██╔╝   ██╔╝
+ ╚██╗██║  ██║ ╚████╔╝██╔╝   ██╔╝ 
+  ╚═╝╚═╝  ╚═╝  ╚═══╝ ╚═╝    ╚═╝      
 `;
 
 function App() {
@@ -252,10 +251,11 @@ function App() {
             borderRadius: "4px",
             border: `2px solid ${theme.palette.background.paper}`,
           },
-          "body, header, footer, aside, main, .MuiPaper-root, .MuiTab-root": {
-            transition:
-              "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out",
-          },
+          "body, header, footer, aside, main, .MuiPaper-root, .MuiTab-root, .MuiButton-root, .MuiChip-root, .MuiTypography-root, span":
+            {
+              transition:
+                "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out",
+            },
         })}
       />
       <CodeFlowBackground

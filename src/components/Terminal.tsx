@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Box, InputBase, Typography } from "@mui/material";
+import { Box, InputBase, Typography, Link } from "@mui/material";
 import type { FileNode } from "../types";
 import { fileSystem, findFileById } from "../data/fileSystem";
 import TerminalIcon from "@mui/icons-material/Terminal";
 
 const NeofetchOutput = () => {
   const asciiLogo = `
-    ██████╗░██╗░░░░░██╗
-    ██╔══██╗██║░░░░░██║
-    ██║░░██║██║░░░░░██║
-    ██║░░██║██║░░░░░██║
-    ██████╔╝███████╗██║
-    ╚═════╝░╚══════╝╚═╝
+  ██╗ █████╗ ██╗   ██╗   ██╗██╗  
+ ██╔╝██╔══██╗██║   ██║  ██╔╝╚██╗ 
+██╔╝ ███████║██║   ██║ ██╔╝  ╚██╗
+╚██╗ ██╔══██║╚██╗ ██╔╝██╔╝   ██╔╝
+ ╚██╗██║  ██║ ╚████╔╝██╔╝   ██╔╝ 
+  ╚═╝╚═╝  ╚═╝  ╚═══╝ ╚═╝    ╚═╝  
   `;
 
   const specs = {
@@ -89,7 +89,7 @@ export default function Terminal({ onOpenFile, onToggleTheme }: TerminalProps) {
     switch (command) {
       case "help":
         output =
-          "Comandi: about, projects, contact, open <file-id>, theme, neofetch, clear";
+          "Comandi: about, projects, contact, open <file-name>, theme, neofetch, clear";
         break;
       case "about":
         output =
@@ -99,14 +99,42 @@ export default function Terminal({ onOpenFile, onToggleTheme }: TerminalProps) {
         output = "1. portfolio-interattivo.jsx";
         break;
       case "contact":
-        output = "Puoi trovarmi su [la tua email] o [il tuo LinkedIn].";
+        output = (
+          <Box component="span">
+            Puoi contattarmi via{" "}
+            <Link
+              href="mailto:a.vannetti08@gmail.com"
+              color="primary"
+              target="_blank"
+            >
+              Email
+            </Link>{" "}
+            o trovarmi su{" "}
+            <Link
+              href="https://www.linkedin.com/in/andrea-vannetti-215105153/"
+              color="primary"
+              target="_blank"
+            >
+              LinkedIn
+            </Link>{" "}
+            o{" "}
+            <Link
+              href="https://github.com/AndreaV89"
+              color="primary"
+              target="_blank"
+            >
+              GitHub
+            </Link>
+            .
+          </Box>
+        );
         break;
       case "theme":
         onToggleTheme();
         output = "Tema cambiato.";
         break;
       case "clear":
-        setHistory([]);
+        setHistory([<WelcomeMessage key={Date.now()} />]);
         return;
 
       // --- NUOVO COMANDO 'open' ---

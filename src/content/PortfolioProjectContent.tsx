@@ -32,7 +32,7 @@ export default function PortfolioProjectContent() {
       "Effetto 'Glitch' e animazioni CSS",
       "Terminale interattivo con comandi custom",
     ],
-    sourceCodeUrl: "https://github.com/tuo-username/tuo-repo", // URL Reale o segnaposto
+    sourceCodeUrl: "https://github.com/AndreaV89/MyPortfolio", // URL Reale o segnaposto
     imageUrl: "/path/to/your/screenshot-portfolio.jpg",
   };
 
