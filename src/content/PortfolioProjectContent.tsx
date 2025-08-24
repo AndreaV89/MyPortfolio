@@ -15,11 +15,16 @@ import {
 } from "../components/SyntaxComponents"; // <-- Importiamo gli stili
 import ModuleLoader from "../components/ModuleLoader";
 
+let hasLoadedOnce = false;
+
 export default function PortfolioProjectContent() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!hasLoadedOnce);
 
   const handleLoadingComplete = () => {
-    setTimeout(() => setIsLoading(false), 300); // Un piccolo ritardo per fluidità
+    setTimeout(() => {
+      setIsLoading(false);
+      hasLoadedOnce = true;
+    }, 300); // Un piccolo ritardo per fluidità
   };
 
   const portfolio = {
