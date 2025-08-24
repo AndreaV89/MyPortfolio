@@ -8,9 +8,10 @@ const random = (min: number, max: number): number =>
 
 interface GlitchableTextProps {
   text: string;
+  animationsEnabled: boolean;
 }
 
-function GlitchableText({ text }: GlitchableTextProps) {
+function GlitchableText({ text, animationsEnabled }: GlitchableTextProps) {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
@@ -45,6 +46,8 @@ function GlitchableText({ text }: GlitchableTextProps) {
       clearTimeout(glitchTimeout);
     };
   }, []); // L'array vuoto assicura che useEffect venga eseguito solo una volta
+
+  const className = isGlitching && animationsEnabled ? "glitching" : "";
 
   return (
     <Box
@@ -93,7 +96,7 @@ function GlitchableText({ text }: GlitchableTextProps) {
           animation: "glitch-chaos 0.5s ease-in-out infinite alternate-reverse",
         },
       })}
-      className={isGlitching ? "glitching" : ""}
+      className={className}
       data-text={text}
     >
       {text}

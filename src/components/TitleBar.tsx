@@ -5,6 +5,8 @@ import type { FileNode } from "../types";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MenuIcon from "@mui/icons-material/Menu";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 
 interface TitleBarProps {
   activeFile: FileNode | null;
@@ -15,6 +17,8 @@ interface TitleBarProps {
   onToggleTheme: () => void;
   currentTheme: "light" | "dark";
   onMenuClick: () => void;
+  animationsEnabled: boolean;
+  onToggleAnimations: () => void;
 }
 
 export default function TitleBar({
@@ -26,6 +30,8 @@ export default function TitleBar({
   onToggleTheme,
   currentTheme,
   onMenuClick,
+  animationsEnabled,
+  onToggleAnimations,
 }: TitleBarProps) {
   return (
     <Box
@@ -102,7 +108,17 @@ export default function TitleBar({
         </Box>
       </Box>
       {/* --- GRUPPO DESTRA: Selettore Tema --- */}
-      <Box sx={{ marginLeft: "auto" }}>
+      <Box sx={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+        <IconButton
+          onClick={onToggleAnimations}
+          sx={{ color: "text.secondary" }}
+        >
+          {animationsEnabled ? (
+            <PauseCircleOutlineIcon />
+          ) : (
+            <PlayCircleOutlineIcon />
+          )}
+        </IconButton>
         <IconButton onClick={onToggleTheme} sx={{ color: "text.secondary" }}>
           {currentTheme === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>

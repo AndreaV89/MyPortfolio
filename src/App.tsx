@@ -22,7 +22,7 @@ import type { FileNode } from "./types";
 import StatusBar from "./components/StatusBar";
 import TabBar from "./components/TabBar";
 import TitleBar from "./components/TitleBar";
-import MatrixBackground from "./components/MatrixBackground";
+import CodeFlowBackground from "./components/CodeFlowBackground";
 import { Fade } from "@mui/material";
 
 const asciiLogo2 = `
@@ -53,6 +53,11 @@ function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(true);
   const [history, setHistory] = useState<string[]>([activeTabId || ""]);
   const [historyIndex, setHistoryIndex] = useState(0);
+  const [animationsEnabled, setAnimationsEnabled] = useState(true);
+
+  const handleToggleAnimations = () => {
+    setAnimationsEnabled((prev) => !prev);
+  };
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -249,12 +254,11 @@ function App() {
           },
         })}
       />
-      <MatrixBackground
-        isSplashScreen={loading}
+      <CodeFlowBackground
         color={theme.palette.primary.main}
+        animationsEnabled={animationsEnabled}
       />
-      {/* La splash screen viene mostrata/nascosta in base allo stato 'loading' */}
-      <Fade in={loading} timeout={1000}>
+      <Fade in={loading} timeout={1000} unmountOnExit>
         <Box
           sx={{
             position: "fixed",
@@ -266,6 +270,8 @@ function App() {
             alignItems: "center",
             justifyContent: "center",
             zIndex: 9999,
+            // Aggiungiamo uno sfondo solido per nascondere l'interfaccia sotto
+            backgroundColor: "background.default",
           }}
         >
           <Typography
@@ -298,6 +304,8 @@ function App() {
             onToggleTheme={toggleTheme}
             currentTheme={mode}
             onMenuClick={handleSidebarToggle}
+            animationsEnabled={animationsEnabled}
+            onToggleAnimations={handleToggleAnimations}
           />
           <Box
             sx={{
@@ -331,7 +339,10 @@ function App() {
                 onCloseTab={handleCloseTab}
               />
               {/* Il contenuto principale mostra il file del tab attivo */}
-              <MainContent file={activeFile} />
+              <MainContent
+                file={activeFile}
+                animationsEnabled={animationsEnabled}
+              />
               <Collapse in={isTerminalOpen}>
                 <Terminal
                   onOpenFile={handleOpenFile}
@@ -344,6 +355,7 @@ function App() {
           <StatusBar
             file={activeFile}
             onToggleTerminal={handleToggleTerminal}
+            animationsEnabled={animationsEnabled}
           />
         </Box>
       </Fade>

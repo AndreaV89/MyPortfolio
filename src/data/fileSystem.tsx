@@ -1,11 +1,14 @@
+import React from "react";
 import type { FileSystemNode, FileNode } from "../types";
 
-import ReadmeContent from "../content/ReadmeContent";
-import AboutMeContent from "../content/AboutMeContent";
-import PortfolioProjectContent from "../content/PortfolioProjectContent";
-import ContactContent from "../content/ContactContent";
-import SkillsContent from "../content/SkillsContent";
-import Succulentarte from "../content/Succulentarte";
+const ReadmeContent = React.lazy(() => import("../content/ReadmeContent"));
+const AboutMeContent = React.lazy(() => import("../content/AboutMeContent"));
+const PortfolioProjectContent = React.lazy(
+  () => import("../content/PortfolioProjectContent")
+);
+const ContactContent = React.lazy(() => import("../content/ContactContent"));
+const SkillsContent = React.lazy(() => import("../content/SkillsContent"));
+const Succulentarte = React.lazy(() => import("../content/Succulentarte"));
 
 // Dati del nostro finto file system
 export const fileSystem: FileSystemNode[] = [

@@ -8,9 +8,14 @@ import GlitchableIcon from "./GlitchableIcon";
 interface StatusBarProps {
   file: FileNode | null;
   onToggleTerminal: () => void;
+  animationsEnabled: boolean;
 }
 
-export default function StatusBar({ file, onToggleTerminal }: StatusBarProps) {
+export default function StatusBar({
+  file,
+  onToggleTerminal,
+  animationsEnabled,
+}: StatusBarProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -30,7 +35,7 @@ export default function StatusBar({ file, onToggleTerminal }: StatusBarProps) {
     >
       {/* --- Sezione Sinistra --- */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <GlitchableIcon>
+        <GlitchableIcon animationsEnabled={animationsEnabled}>
           {/* <-- AVVOLGIAMO L'ICONA */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
             <AccountTreeIcon sx={{ fontSize: "1rem" }} />

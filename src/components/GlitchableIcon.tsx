@@ -6,9 +6,13 @@ const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
 interface GlitchableIconProps {
   children: React.ReactNode;
+  animationsEnabled: boolean;
 }
 
-export default function GlitchableIcon({ children }: GlitchableIconProps) {
+export default function GlitchableIcon({
+  children,
+  animationsEnabled,
+}: GlitchableIconProps) {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
@@ -30,6 +34,8 @@ export default function GlitchableIcon({ children }: GlitchableIconProps) {
       clearTimeout(glitchTimeout);
     };
   }, []);
+
+  const className = isGlitching && animationsEnabled ? "glitching" : "";
 
   return (
     <Box
@@ -69,7 +75,7 @@ export default function GlitchableIcon({ children }: GlitchableIconProps) {
           animation: "block-tear 0.3s steps(2, end)",
         },
       }}
-      className={`glitch-icon-container ${isGlitching ? "glitching" : ""}`}
+      className={`glitch-icon-container ${className}`}
     >
       {children}
     </Box>

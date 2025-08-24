@@ -1,12 +1,17 @@
-import { Box } from "@mui/material";
+import React from "react";
+import { Box, CircularProgress } from "@mui/material";
 import GlitchableText from "./GlitchableText";
 import type { FileNode } from "../types";
 
 interface MainContentProps {
   file: FileNode | null;
+  animationsEnabled: boolean;
 }
 
-export default function MainContent({ file }: MainContentProps) {
+export default function MainContent({
+  file,
+  animationsEnabled,
+}: MainContentProps) {
   if (!file) {
     return (
       <Box
@@ -18,7 +23,10 @@ export default function MainContent({ file }: MainContentProps) {
           borderColor: "divider",
         }}
       >
-        <GlitchableText text="SELEZIONA UN FILE" />
+        <GlitchableText
+          text="SELEZIONA UN FILE"
+          animationsEnabled={animationsEnabled}
+        />
       </Box>
     );
   }
@@ -35,8 +43,19 @@ export default function MainContent({ file }: MainContentProps) {
         overflowY: "auto",
       }}
     >
-      <GlitchableText text={file.name.toUpperCase()} />
-      {file.content}
+      <GlitchableText
+        text={file.name.toUpperCase()}
+        animationsEnabled={animationsEnabled}
+      />
+      <React.Suspense
+        fallback={
+          <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
+            <CircularProgress />
+          </Box>
+        }
+      >
+        {file.content}
+      </React.Suspense>
     </Box>
   );
 }
