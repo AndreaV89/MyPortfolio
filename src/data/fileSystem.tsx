@@ -30,13 +30,13 @@ export const fileSystem: FileSystemNode[] = [
     name: "progetti",
     children: [
       {
-        id: "project-1",
+        id: "portfolio-interattivo",
         type: "file",
-        name: "portfolio-interattivo.jsx",
+        name: "Portfolio-interattivo.tsx",
         content: <PortfolioProjectContent />,
       },
       {
-        id: "succulentarte.tsx",
+        id: "succulentarte",
         type: "file",
         name: "Succulentarte.tsx",
         content: <Succulentarte />,
@@ -51,7 +51,7 @@ export const fileSystem: FileSystemNode[] = [
       {
         id: "skills",
         type: "file",
-        name: "skills.jsx",
+        name: "skills.html",
         content: <SkillsContent />,
       },
     ],
@@ -60,9 +60,7 @@ export const fileSystem: FileSystemNode[] = [
     id: "contatti",
     type: "file",
     name: "contatti.json",
-    // --- NUOVO CONTENUTO ---
     content: <ContactContent />,
-    // --- FINE NUOVO CONTENUTO ---
   },
 ];
 

@@ -56,12 +56,12 @@ export default function PortfolioProjectContent() {
             }}
           >
             <Comment>
-              &#47;&#47; file: /progetti/portfolio-interattivo.jsx
+              &#47;&#47; file: /progetti/portfolio-interattivo.tsx
             </Comment>
             <br />
             <br />
-            <Keyword>const</Keyword> <VarName>portfolio</VarName> <Punc>=</Punc>{" "}
-            <Brackets1>&#123;</Brackets1>
+            <Keyword>const</Keyword> <CompName>Portfolio</CompName>{" "}
+            <Punc>=</Punc> <Brackets1>&#123;</Brackets1>
             <br />
             {"  "}
             <VarName>name</VarName>

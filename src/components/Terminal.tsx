@@ -140,7 +140,7 @@ export default function Terminal({ onOpenFile, onToggleTheme }: TerminalProps) {
       // --- NUOVO COMANDO 'open' ---
       case "open":
         if (!arg) {
-          output = "Uso: open <file-id>. Es: 'open about-me'";
+          output = "Uso: open <file-name>. Es: 'open about-me'";
         } else {
           const fileToOpen = findFileById(fileSystem, arg);
           if (fileToOpen) {
