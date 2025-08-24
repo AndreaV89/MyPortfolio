@@ -61,7 +61,8 @@ export default function MatrixBackground({
         }
       };
 
-      intervalId = window.setInterval(draw, 30);
+      const intervalTime = isSplashScreen ? 30 : 150;
+      intervalId = window.setInterval(draw, intervalTime);
     };
 
     // Funzione che viene chiamata al ridimensionamento della finestra
@@ -81,7 +82,7 @@ export default function MatrixBackground({
       window.removeEventListener("resize", handleResize);
       window.clearInterval(intervalId);
     };
-  }, [color]); // L'array vuoto assicura che questo effetto venga eseguito solo una volta (al montaggio)
+  }, [color, isSplashScreen]); // L'array vuoto assicura che questo effetto venga eseguito solo una volta (al montaggio)
 
   return (
     <Box
