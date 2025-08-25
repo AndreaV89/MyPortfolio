@@ -20,7 +20,7 @@ export const fileSystem: FileSystemNode[] = [
   {
     id: "about-me",
     type: "file",
-    name: "about-me.md",
+    name: "about-me.js",
     content: <AboutMeContent />,
   },
   {
@@ -45,7 +45,7 @@ export const fileSystem: FileSystemNode[] = [
   {
     id: "contatti",
     type: "file",
-    name: "contatti.json",
+    name: "contatti.html",
     content: <ContactContent />,
   },
 ];
