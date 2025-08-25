@@ -28,50 +28,57 @@ export default function TabBar({
         onChange={onTabChange}
         variant="scrollable"
         scrollButtons="auto"
-        sx={{
-          minHeight: "40px",
-          "@keyframes glitchTabSelect": {
-            "0%": {
-              backgroundColor: "#2d2d2d",
-              borderColor: "#424242",
-              color: "text.secondary",
-            },
-            "25%": {
-              backgroundColor: "primary.main",
-              borderColor: "#2d2d2d",
-              color: "#1a1d21",
-            },
-            "50%": { backgroundColor: "#2d2d2d", borderColor: "primary.main" },
-            "100%": {
-              backgroundColor: "background.default",
-              borderColor: "primary.main",
-              color: "text.primary",
-            },
-          },
-          "& .MuiTab-root": {
-            minHeight: "40px",
-            textTransform: "none",
-            color: "text.secondary",
-            backgroundColor: "background.default",
-            borderRight: "1px solid",
-            borderColor: "divider",
-            outline: "none",
-            py: "7px",
+        sx={(theme) => {
+          const animationName = `glitchTabSelect-${theme.palette.mode}`;
 
-            // Stile per il tab selezionato
-            "&.Mui-selected": {
-              color: "text.primary",
-              animation: "glitchTabSelect 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-              backgroundColor: "background.default",
-              borderTop: "1px solid",
-              borderColor: "primary.main",
-              // Abbiamo rimosso la riga "borderBottomColor: 'background.default'"
-              // Ora anche il tab selezionato mostrerà il suo bordo inferiore.
+          return {
+            minHeight: "40px",
+            [`@keyframes ${animationName}`]: {
+              "0%": {
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#2d2d2d" : "#e0e0e0",
+                borderColor: theme.palette.divider,
+                color: theme.palette.text.secondary,
+              },
+              "25%": {
+                backgroundColor: theme.palette.primary.main,
+                borderColor:
+                  theme.palette.mode === "dark" ? "#2d2d2d" : "#e0e0e0",
+                color: theme.palette.mode === "dark" ? "#1a1d21" : "#ffffff",
+              },
+              "50%": {
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#2d2d2d" : "#e0e0e0",
+                borderColor: theme.palette.primary.main,
+              },
+              "100%": {
+                backgroundColor: theme.palette.background.default,
+                borderColor: theme.palette.primary.main,
+                color: theme.palette.text.primary,
+              },
             },
-          },
-          "& .MuiTabs-indicator": {
-            display: "none",
-          },
+            "& .MuiTab-root": {
+              minHeight: "40px",
+              textTransform: "none",
+              color: "text.secondary",
+              backgroundColor: "background.default",
+              borderRight: "1px solid",
+              borderColor: "divider",
+              outline: "none",
+              py: "7px",
+              "&.Mui-selected": {
+                color: "text.primary",
+                // 3. Usiamo lo stesso nome dinamico per APPLICARE l'animazione
+                animation: `${animationName} 300ms cubic-bezier(0.4, 0, 0.2, 1)`,
+                backgroundColor: "background.default",
+                borderTop: "1px solid",
+                borderColor: "primary.main",
+              },
+            },
+            "& .MuiTabs-indicator": {
+              display: "none",
+            },
+          };
         }}
       >
         {openTabs.map((tab) => (
