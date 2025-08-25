@@ -66,6 +66,8 @@ export default function AboutMeContent() {
         component="pre"
         sx={{ lineHeight: 1.75, fontSize: "0.9rem", whiteSpace: "pre-wrap" }}
       >
+        <Comment>// file: /about-me.md.tsx</Comment>
+        <br />
         <br />
         <Keyword2>class</Keyword2> <ReactTag>Andrea Vannetti</ReactTag>{" "}
         <Brackets1>&#123;</Brackets1>

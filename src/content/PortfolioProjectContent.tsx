@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Typography, Box, Chip, Link, Fade } from "@mui/material";
+import { Box, Chip, Link, Fade } from "@mui/material";
 import {
   String,
   Keyword,
+  Keyword2,
   Punc,
   Comment,
   VarName,
@@ -60,33 +61,34 @@ export default function PortfolioProjectContent() {
             </Comment>
             <br />
             <br />
-            <Keyword>const</Keyword> <CompName>Portfolio</CompName>{" "}
-            <Punc>=</Punc> <Brackets1>&#123;</Brackets1>
+            <Keyword2>const</Keyword2> <CompName>Portfolio</CompName>{" "}
+            <Punc>= </Punc>
+            <Brackets1>&#123;</Brackets1>
             <br />
-            {"  "}
+            ··
             <VarName>name</VarName>
             <Punc>:</Punc> <String>"{portfolio.name}"</String>
             <Punc>,</Punc>
             <br />
-            {"  "}
+            ··
             <VarName>description</VarName>
             <Punc>:</Punc> <String>`{portfolio.description}`</String>
             <Punc>,</Punc>
             {"  "}
             <br />
-            {"  "}
+            ··
             <VarName>features</VarName>
             <Punc>:</Punc> <Brackets3>&#91;</Brackets3>
             <br />
             {portfolio.features.map((f) => (
               <React.Fragment key={f}>
-                {"    "}
+                ····
                 <String>"{f}"</String>
                 <Punc>,</Punc>
                 <br />
               </React.Fragment>
             ))}
-            {"  "}
+            ··
             <Brackets3>&#93;</Brackets3>
             <Punc>,</Punc>
             <br />
@@ -96,11 +98,12 @@ export default function PortfolioProjectContent() {
             <br />
             <Comment>&#47;&#47; Visualizza i dettagli del progetto</Comment>
             <br />
-            <Keyword>export const</Keyword> <CompName>ProjectDetails</CompName>{" "}
+            <Keyword>export </Keyword>
+            <Keyword2>const</Keyword2> <CompName>ProjectDetails</CompName>{" "}
             <Punc>=</Punc> <Brackets1>()</Brackets1> <Punc>=&gt;</Punc>{" "}
             <Brackets2>&#40;</Brackets2>
             <br />
-            {"  "}
+            ··
             <Symbols>&lt;</Symbols>
             <ReactTag>Box</ReactTag> <VarName>sx</VarName>
             <Punc>&#61;</Punc>
@@ -110,11 +113,11 @@ export default function PortfolioProjectContent() {
             <Brackets1>&#125;</Brackets1>
             <Symbols>&gt;</Symbols>
             <br />
-            {"    "}
-            <Typography variant="h6">Stack Tecnologico:</Typography>
+            ····<Symbols>&lt;</Symbols>
+            <ReactTag>Stack Tecnologico:</ReactTag>
+            <Symbols> /&gt;</Symbols>
             <br />
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, my: 1 }}>
-              {/* Ora questo funziona perché 'portfolio' esiste! */}
               {portfolio.stack.map((tech) => (
                 <Chip
                   key={tech}
@@ -125,9 +128,11 @@ export default function PortfolioProjectContent() {
               ))}
             </Box>
             <br />
-            <Typography variant="h6">Link Utili:</Typography>
+            ····<Symbols>&lt;</Symbols>
+            <ReactTag>Link Utili:</ReactTag>
+            <Symbols> /&gt;</Symbols>
             <br />
-            {"    "}
+            ······
             <Link
               href={portfolio.sourceCodeUrl}
               target="_blank"
@@ -136,7 +141,7 @@ export default function PortfolioProjectContent() {
               Codice Sorgente (GitHub)
             </Link>
             <br />
-            {"  "}
+            ··
             <Symbols>&lt;/</Symbols>
             <ReactTag>Box</ReactTag>
             <Symbols>&gt;</Symbols>
