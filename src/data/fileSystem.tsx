@@ -7,7 +7,6 @@ const PortfolioProjectContent = React.lazy(
   () => import("../content/PortfolioProjectContent")
 );
 const ContactContent = React.lazy(() => import("../content/ContactContent"));
-const SkillsContent = React.lazy(() => import("../content/SkillsContent"));
 const Succulentarte = React.lazy(() => import("../content/Succulentarte"));
 
 // Dati del nostro finto file system
@@ -40,19 +39,6 @@ export const fileSystem: FileSystemNode[] = [
         type: "file",
         name: "Succulentarte.tsx",
         content: <Succulentarte />,
-      },
-    ],
-  },
-  {
-    id: "skills",
-    type: "folder",
-    name: "competenze",
-    children: [
-      {
-        id: "skills",
-        type: "file",
-        name: "skills.html",
-        content: <SkillsContent />,
       },
     ],
   },

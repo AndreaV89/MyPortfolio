@@ -96,10 +96,12 @@ function App() {
                 divider: "rgba(255, 255, 255, 0.12)",
                 syntax: {
                   reactTag: "#4ec9b0",
-                  keyword: "#c284bd",
+                  keyword: "#c586c0",
+                  keyword2: "#569cd6",
                   string: "#ce9178",
                   comment: "#679554",
                   varName: "#9ad8f8",
+                  varName2: "#4fc1ff",
                   compName: "#d8d8a7",
                   punc: "#f8f8f2",
                   symbols: "#757575",
@@ -122,6 +124,7 @@ function App() {
                 syntax: {
                   reactTag: "#398aa2",
                   keyword: "#af00db",
+                  keyword2: "#0d1c86",
                   string: "#a82121",
                   comment: "#008000",
                   varName: "#0070c1",

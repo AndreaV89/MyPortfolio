@@ -1,8 +1,5 @@
-// In src/content/ReadmeContent.tsx
-
 import { Typography, Box, Divider, Chip } from "@mui/material";
 
-// Tecnologie usate per questo portfolio
 const techStack = ["React", "TypeScript", "Vite", "Material-UI"];
 
 export default function ReadmeContent() {
@@ -16,25 +13,13 @@ export default function ReadmeContent() {
         &gt; Connessione stabilita. Benvenuto.
       </Typography>
       <Divider sx={{ my: 3, borderColor: "rgba(255, 255, 255, 0.12)" }} />
-      <Typography>
-        Ciao, sono{" "}
-        <Typography
-          component="span"
-          sx={{ color: "primary.main", fontWeight: "bold" }}
-        >
-          Andrea Vannetti
-        </Typography>
-        , Web Developer con una passione per le interfacce non convenzionali e
-        il codice creativo.
-      </Typography>
       <Typography sx={{ mt: 2 }}>
         Quello che vedi non è un semplice sito, ma un portfolio interattivo che
         vive e respira all'interno di un'emulazione di code editor.
       </Typography>
 
-      {/* --- NUOVA SEZIONE: TECH STACK --- */}
       <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
-        Stack di questo Portfolio
+        Stack di questo Progetto
       </Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
         {techStack.map((tech) => (
@@ -43,31 +28,23 @@ export default function ReadmeContent() {
       </Box>
 
       <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
-        Come funziona
+        Come Esplorare
       </Typography>
       <ul>
         <li>
           <Typography>
             <strong>Naviga</strong> usando l'esploratore di file sulla sinistra
-            per scoprire i miei progetti e le mie competenze.
+            per scoprire chi sono, i miei progetto e come contattarmi.
           </Typography>
         </li>
         <li>
           <Typography>
-            <strong>Interagisci</strong> con il terminale in basso. È una parte
-            fondamentale dell'esperienza!
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            <strong>Attenzione:</strong> occasionali scariche di dati (
-            <em>glitch</em>) sono una feature, non un bug. È il sistema che
-            pensa.
+            <strong>Prova il terminale</strong> in basso per un'esperienza più
+            interattiva.
           </Typography>
         </li>
       </ul>
 
-      {/* --- NUOVA SEZIONE: COMANDI RAPIDI --- */}
       <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
         Comandi Rapidi da Provare
       </Typography>
@@ -81,6 +58,13 @@ export default function ReadmeContent() {
         }}
       >
         <code>
+          help{" "}
+          <span style={{ color: "#679554" }}>
+            // Mostra la lista dei comandi disponibili"
+          </span>
+        </code>
+        <br />
+        <code>
           neofetch{" "}
           <span style={{ color: "#679554" }}>
             // Mostra le specifiche di questo "sistema"
@@ -88,9 +72,9 @@ export default function ReadmeContent() {
         </code>
         <br />
         <code>
-          open skills{" "}
+          open about-me{" "}
           <span style={{ color: "#679554" }}>
-            // Apre direttamente il file delle competenze
+            // Apre direttamente il file about-me.md
           </span>
         </code>
         <br />

@@ -14,6 +14,12 @@ export const Keyword = ({ children }: { children: React.ReactNode }) => (
   </Typography>
 );
 
+export const Keyword2 = ({ children }: { children: React.ReactNode }) => (
+  <Typography component="span" sx={{ color: "syntax.keyword2" }}>
+    {children}
+  </Typography>
+);
+
 export const String = ({ children }: { children: React.ReactNode }) => (
   <Typography component="span" sx={{ color: "syntax.string" }}>
     {children}
@@ -28,6 +34,12 @@ export const Comment = ({ children }: { children: React.ReactNode }) => (
 
 export const VarName = ({ children }: { children: React.ReactNode }) => (
   <Typography component="span" sx={{ color: "syntax.varName" }}>
+    {children}
+  </Typography>
+);
+
+export const VarName2 = ({ children }: { children: React.ReactNode }) => (
+  <Typography component="span" sx={{ color: "syntax.varName2" }}>
     {children}
   </Typography>
 );
